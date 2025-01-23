@@ -21,7 +21,7 @@
 		<ApplicationIcon>logo.ico</ApplicationIcon>
 		<Title>CdCSharp Generic</Title>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageIcon>logo.ico</PackageIcon>
+		<PackageIcon>logo.png</PackageIcon>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 
