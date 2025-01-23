@@ -24,12 +24,12 @@ dotnet add package CdCSharp.Generic
 
 ## 🤝 Contributing
 
-Contributions are welcome. Please read our [contribution guide](https://github.com/smaicas/CdCSharp.NjBlazor/blob/master/CONTRIBUTE.md) before submitting a PR.
+Contributions are welcome. Please read our [contribution guide](https://github.com/smaicas/CdCSharp.Generic/blob/master/CONTRIBUTE.md) before submitting a PR.
 Join the [discord](https://discord.gg/MpUfe7zD)
 
 ## 📄 License
 
-This project is licensed under the GPL v3 License - see the [LICENSE](https://github.com/smaicas/CdCSharp.NjBlazor/blob/master/LICENSE) file for details.
+This project is licensed under the GPL v3 License - see the [LICENSE](https://github.com/smaicas/CdCSharp.Generic/blob/master/LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 

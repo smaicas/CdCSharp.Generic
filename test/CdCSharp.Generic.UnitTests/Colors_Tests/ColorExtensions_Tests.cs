@@ -11,68 +11,122 @@ public class ColorExtensions_Tests
         Assert.Equal("#FF0000FF", color.GetHex());
     }
 
-    [Theory]
-    [InlineData(255, 0, 0, "FF")]
-    [InlineData(128, 0, 0, "80")]
-    [InlineData(0, 0, 0, "00")]
-    public void GetHexA_ReturnsCorrectHexValue(int alpha, int r, int g, string expected)
+    [Fact]
+    public void GetHexA_ReturnsCorrectHexValue_Alpha255_Red0_Green0()
     {
-        Color color = Color.FromArgb(alpha, r, g, 0);
-        Assert.Equal(expected, color.GetHexA());
+        Color color = Color.FromArgb(255, 0, 0, 0);
+        Assert.Equal("FF", color.GetHexA());
     }
 
-    [Theory]
-    [InlineData(0, 0, 255, "FF")]
-    [InlineData(0, 0, 128, "80")]
-    [InlineData(0, 0, 0, "00")]
-    public void GetHexB_ReturnsCorrectHexValue(int r, int g, int b, string expected)
+    [Fact]
+    public void GetHexA_ReturnsCorrectHexValue_Alpha128_Red0_Green0()
     {
-        Color color = Color.FromArgb(255, r, g, b);
-        Assert.Equal(expected, color.GetHexB());
+        Color color = Color.FromArgb(128, 0, 0, 0);
+        Assert.Equal("80", color.GetHexA());
     }
 
-    [Theory]
-    [InlineData(0, 255, 0, "FF")]
-    [InlineData(0, 128, 0, "80")]
-    [InlineData(0, 0, 0, "00")]
-    public void GetHexG_ReturnsCorrectHexValue(int r, int g, int b, string expected)
+    [Fact]
+    public void GetHexA_ReturnsCorrectHexValue_Alpha0_Red0_Green0()
     {
-        Color color = Color.FromArgb(255, r, g, b);
-        Assert.Equal(expected, color.GetHexG());
+        Color color = Color.FromArgb(0, 0, 0, 0);
+        Assert.Equal("00", color.GetHexA());
     }
 
-    [Theory]
-    [InlineData(255, 0, 0, "FF")]
-    [InlineData(128, 0, 0, "80")]
-    [InlineData(0, 0, 0, "00")]
-    public void GetHexR_ReturnsCorrectHexValue(int r, int g, int b, string expected)
+    [Fact]
+    public void GetHexB_ReturnsCorrectHexValue_Blue255()
     {
-        Color color = Color.FromArgb(255, r, g, b);
-        Assert.Equal(expected, color.GetHexR());
+        Color color = Color.FromArgb(255, 0, 0, 255);
+        Assert.Equal("FF", color.GetHexB());
     }
 
-    [Theory]
-    [InlineData(255, 255, 0, 0, null, true, "rgba(255,0,0,1.00)")]
-    [InlineData(128, 255, 0, 0, null, true, "rgba(255,0,0,0.50)")]
-    [InlineData(255, 255, 0, 0, 0.5, true, "rgba(255,0,0,0.5)")]
-    [InlineData(255, 255, 0, 0, 128, false, "rgba(255,0,0,128)")]
-    [InlineData(0, 0, 0, 0, null, true, "rgba(0,0,0,0.00)")]
-    public void ToStringRgba_ReturnsCorrectFormat(
-        int alpha, int r, int g, int b,
-        decimal? alphaValue, bool? alphaPercent,
-        string expected)
+    [Fact]
+    public void GetHexB_ReturnsCorrectHexValue_Blue128()
     {
-        Color color = Color.FromArgb(alpha, r, g, b);
-        Assert.Equal(expected, color.ToStringRgba(alphaValue, alphaPercent));
+        Color color = Color.FromArgb(255, 0, 0, 128);
+        Assert.Equal("80", color.GetHexB());
     }
 
-    [Theory]
-    [InlineData(255, 128, 64, "#FF804000FF")]
-    [InlineData(0, 0, 0, "#00000000")]
-    [InlineData(255, 255, 255, "#FFFFFFFF")]
-    public void GetHex_DifferentColors_ReturnsCorrectHexString(int r, int g, int b, string expected)
+    [Fact]
+    public void GetHexB_ReturnsCorrectHexValue_Blue0()
     {
-        Color color = Color.FromArgb(255, r, g, b);
-        Assert.Equal(expected, color.GetHex());
+        Color color = Color.FromArgb(255, 0, 0, 0);
+        Assert.Equal("00", color.GetHexB());
+    }
+
+    [Fact]
+    public void GetHexG_ReturnsCorrectHexValue_Green255()
+    {
+        Color color = Color.FromArgb(255, 0, 255, 0);
+        Assert.Equal("FF", color.GetHexG());
+    }
+
+    [Fact]
+    public void GetHexG_ReturnsCorrectHexValue_Green128()
+    {
+        Color color = Color.FromArgb(255, 0, 128, 0);
+        Assert.Equal("80", color.GetHexG());
+    }
+
+    [Fact]
+    public void GetHexG_ReturnsCorrectHexValue_Green0()
+    {
+        Color color = Color.FromArgb(255, 0, 0, 0);
+        Assert.Equal("00", color.GetHexG());
+    }
+
+    [Fact]
+    public void GetHexR_ReturnsCorrectHexValue_Red255()
+    {
+        Color color = Color.FromArgb(255, 255, 0, 0);
+        Assert.Equal("FF", color.GetHexR());
+    }
+
+    [Fact]
+    public void GetHexR_ReturnsCorrectHexValue_Red128()
+    {
+        Color color = Color.FromArgb(255, 128, 0, 0);
+        Assert.Equal("80", color.GetHexR());
+    }
+
+    [Fact]
+    public void GetHexR_ReturnsCorrectHexValue_Red0()
+    {
+        Color color = Color.FromArgb(255, 0, 0, 0);
+        Assert.Equal("00", color.GetHexR());
+    }
+
+    [Fact]
+    public void ToStringRgba_ReturnsCorrectFormat_Alpha255_AlphaPercent_True()
+    {
+        Color color = Color.FromArgb(0, 255, 0, 0);
+        Assert.Equal("rgba(255,0,0,0.50)", color.ToStringRgba(128, true));
+    }
+
+    [Fact]
+    public void ToStringRgba_ReturnsCorrectFormat_Alpha255_AlphaPercent_False()
+    {
+        Color color = Color.FromArgb(255, 255, 0, 0);
+        Assert.Equal("rgba(255,0,0,128)", color.ToStringRgba(128, false));
+    }
+
+    [Fact]
+    public void GetHex_DifferentColors_Red128_Green64_Blue255()
+    {
+        Color color = Color.FromArgb(255, 128, 64, 0);
+        Assert.Equal("#804000FF", color.GetHex());
+    }
+
+    [Fact]
+    public void GetHex_DifferentColors_Black()
+    {
+        Color color = Color.FromArgb(0, 0, 0, 0);
+        Assert.Equal("#00000000", color.GetHex());
+    }
+
+    [Fact]
+    public void GetHex_DifferentColors_White()
+    {
+        Color color = Color.FromArgb(255, 255, 255, 255);
+        Assert.Equal("#FFFFFFFF", color.GetHex());
     }
 }

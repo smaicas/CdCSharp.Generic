@@ -69,21 +69,21 @@ public static class ColorExtensions
     /// <param name="color">
     /// The Color object to convert.
     /// </param>
-    /// <param name="alphaValue">
+    /// <param name="alphaValueZeroTo255">
     /// The alpha value to use for the color (optional, default is the alpha value of the Color object).
     /// </param>
-    /// <param name="alphaPercent">
+    /// <param name="computeAlphaPercent">
     /// Flag indicating whether the alpha value should be represented as a percentage (optional,
     /// default is true).
     /// </param>
     /// <returns>
     /// An RGBA string representation of the Color object.
     /// </returns>
-    public static string ToStringRgba(this Color color, decimal? alphaValue = null, bool? alphaPercent = true)
+    public static string ToStringRgba(this Color color, decimal? alphaValueZeroTo255 = null, bool? computeAlphaPercent = true)
     {
-        alphaValue ??= color.A;
-        if (alphaPercent == true)
-            alphaValue = Math.Round((decimal)alphaValue / 255, 2);
-        return $"rgba({(int)color.R},{(int)color.G},{(int)color.B},{((decimal)alphaValue).ToString(CultureInfo.InvariantCulture)})";
+        alphaValueZeroTo255 ??= color.A;
+        if (computeAlphaPercent == true)
+            alphaValueZeroTo255 = Math.Round((decimal)alphaValueZeroTo255 / 255, 2);
+        return $"rgba({(int)color.R},{(int)color.G},{(int)color.B},{((decimal)alphaValueZeroTo255).ToString(CultureInfo.InvariantCulture)})";
     }
 }
