@@ -1,6 +1,6 @@
-# CdCSharp.NjBlazor 📚
+# CdCSharp.Generic 📚
 
-[![NuGet](https://img.shields.io/nuget/v/CdCSharp.NjBlazor.svg)](https://www.nuget.org/packages/CdCSharp.Generic)
+[![NuGet](https://img.shields.io/nuget/v/CdCSharp.Generic.svg)](https://www.nuget.org/packages/CdCSharp.Generic)
 [![License](https://img.shields.io/github/license/smaicas/CdCSharp.Generic)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/smaicas/CdCSharp.Generic/dotnet.yml?branch=<BRANCH>)](https://github.com/smaicas/CdCSharp.Generic/actions/workflows/dotnet.yml)
 
