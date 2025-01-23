@@ -18,18 +18,13 @@
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<IsPackable>true</IsPackable>
 		<Configurations>Debug;Release;Integration</Configurations>
-		<ApplicationIcon>logo.ico</ApplicationIcon>
 		<Title>CdCSharp Generic</Title>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageIcon>logo.png</PackageIcon>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<PackageIcon>logo.png</PackageIcon>
 
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Content Include="logo.ico" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="CdCSharp.Generic.UnitTests" />
@@ -40,7 +35,7 @@
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
-	  <None Include="..\..\logo.ico">
+	  <None Include="..\..\logo.png">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
