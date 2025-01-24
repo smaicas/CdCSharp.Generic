@@ -1,6 +1,6 @@
 # 🎉 Thank You for Contributing!
 
-Thank you for your interest in improving **[CdCSharp.Generic]**. Your help is greatly valued. 🙌
+Thank you for your interest in improving **[CdCSharp.SyntaxHighlight]**. Your help is greatly valued. 🙌
 
 ---
 
@@ -11,7 +11,7 @@ Before you begin, please review the following.
 ### 🛠️ Steps to Contribute
 
 1. **🔍 Open an Issue**
-   - If you have an idea, suggestion, or find a bug, open an [issue](https://github.com/smaicas/CdCSharp.Generic/issues) to discuss it before making significant changes.
+   - If you have an idea, suggestion, or find a bug, open an [issue](https://github.com/smaicas/CdCSharp.SyntaxHighlight/issues) to discuss it before making significant changes.
 
 2. **🍴 Fork the Repository**
    - Create a fork of this repository to start working on your changes without affecting the main branch.
@@ -23,7 +23,7 @@ Before you begin, please review the following.
    - Make frequent and descriptive commits that clearly explain the changes made.
 
 5. **🔀 Submit a Pull Request**
-   - When your change is ready, open a [Pull Request](https://github.com/smaicas/CdCSharp.Generic/pulls) for the review. Ensure your PR follows the code guidelines and standards.
+   - When your change is ready, open a [Pull Request](https://github.com/smaicas/CdCSharp.SyntaxHighlight/pulls) for the review. Ensure your PR follows the code guidelines and standards.
 
 ---
 
