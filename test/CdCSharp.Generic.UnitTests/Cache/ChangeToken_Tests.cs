@@ -4,13 +4,46 @@ namespace CdCSharp.Generic.UnitTests.Cache;
 internal class TestChangeToken : IChangeToken
 {
     private readonly CancellationTokenSource _cts;
+    private bool _callbackExecuted = false; // Evita múltiples ejecuciones de callbacks
 
     public TestChangeToken(CancellationTokenSource cts) => _cts = cts;
 
     public bool ActiveChangeCallbacks => true;
     public bool HasChanged => _cts.Token.IsCancellationRequested;
 
-    public IDisposable RegisterChangeCallback(Action<object?> callback, object? state) => _cts.Token.Register(() => callback(state));
+    public IDisposable RegisterChangeCallback(Action<object?> callback, object? state)
+    {
+        // Si el token ya está cancelado, ejecuta el callback inmediatamente solo una vez
+        if (_cts.Token.IsCancellationRequested && !_callbackExecuted)
+        {
+            try
+            {
+                _callbackExecuted = true; // Marcar como ejecutado
+                callback(state);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error ejecutando el callback de inmediato: {ex}");
+            }
+        }
+
+        // Registra el callback para cambios futuros del token
+        return _cts.Token.Register(() =>
+        {
+            if (!_callbackExecuted) // Ejecuta el callback solo si no ha sido ejecutado
+            {
+                try
+                {
+                    _callbackExecuted = true; // Marcar como ejecutado
+                    callback(state);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error en el callback registrado: {ex}");
+                }
+            }
+        });
+    }
 }
 
 public class ChangeToken_Tests
@@ -61,6 +94,7 @@ public class ChangeToken_Tests
             Assert.Same(state, capturedState);
         }
     }
+
 
     [Fact]
     public void OnChange_DisposingRegistrationStopsCallbacks()

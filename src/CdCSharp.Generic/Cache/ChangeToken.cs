@@ -67,11 +67,13 @@ public static class ChangeToken
 
         private void OnChangeTokenFired()
         {
-            // The order here is important. We need to take the token and then apply our changes BEFORE
-            // registering. This prevents us from possible having two change updates to process concurrently.
-            //
-            // If the token changes after we take the token, then we'll process the update immediately upon
-            // registering the callback.
+            // Prevenir reentradas si ya se procesó
+            if (_hasProcessedChange)
+            {
+                return;
+            }
+
+            // Obtenemos el siguiente token de cambio
             IChangeToken? token = _changeTokenProducer();
 
             try
@@ -80,23 +82,36 @@ public static class ChangeToken
             }
             finally
             {
-                // We always want to ensure the callback is registered
-                RegisterChangeTokenCallback(token);
+                // Solo registrar si el nuevo token no ha cambiado aún
+                if (token != null && !token.HasChanged)
+                {
+                    RegisterChangeTokenCallback(token);
+                }
             }
         }
 
+        private bool _hasProcessedChange = false; // Nueva bandera para evitar reentradas innecesarias
+
         private void RegisterChangeTokenCallback(IChangeToken? token)
         {
-            if (token is null)
+            if (token is null || _hasProcessedChange)
             {
+                // Si el token es nulo o ya se procesó, no registrar más callbacks
                 return;
             }
-            IDisposable registraton = token.RegisterChangeCallback(s => ((ChangeTokenRegistration<TState>?)s)!.OnChangeTokenFired(), this);
+
+            IDisposable registraton = token.RegisterChangeCallback(
+                s => ((ChangeTokenRegistration<TState>?)s)!.OnChangeTokenFired(),
+                this);
+
+            // Si el token ya ha cambiado, no necesitamos registrarlo de nuevo
             if (token.HasChanged && token.ActiveChangeCallbacks)
             {
-                registraton?.Dispose();
+                registraton.Dispose();
+                _hasProcessedChange = true; // Marcar como procesado
                 return;
             }
+
             SetDisposable(registraton);
         }
 
