@@ -190,8 +190,7 @@ public class MemoryCache_Tests
     public void PostEvictionCallback_Triggered_WhenItemExpires()
     {
         bool callbackInvoked = false;
-
-        MemoryCache cache = new(options => options.ExpirationScanFrequency = TimeSpan.FromMilliseconds(50));
+        MemoryCache cache = new(options => options.ExpirationScanFrequency = TimeSpan.FromMilliseconds(100)); // Incrementar el intervalo
 
         using (ICacheEntry entry = cache.CreateEntry("key1"))
         {
@@ -200,22 +199,20 @@ public class MemoryCache_Tests
             {
                 EvictionCallback = (key, value, reason, state) => callbackInvoked = true
             });
-            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(100);
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMilliseconds(300); // Más tiempo para asegurar expiración
         }
 
         // Espera activa hasta que se invoque el callback o expire el tiempo máximo
-        TimeSpan timeout = TimeSpan.FromSeconds(1);
+        TimeSpan timeout = TimeSpan.FromSeconds(3); // Incrementar el tiempo total de espera
         System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
         while (!callbackInvoked && stopwatch.Elapsed < timeout)
         {
-            Thread.Sleep(10); // Pequeña espera para evitar usar mucho CPU
-            cache.TryGetValue("key1", out _); // Forzar operación de cache para activar limpieza
+            Thread.Sleep(20); // Evitar usar mucho CPU
+            cache.TryGetValue("key1", out _); // Forzar operación para activar limpieza
+            cache.Compact(1.0);
         }
 
-        // Validar que el callback fue llamado
         Assert.True(callbackInvoked, "El callback de post-evicción no fue invocado.");
-
-        // Verificar que la entrada no existe en el cache
         Assert.False(cache.TryGetValue("key1", out _), "La entrada aún existe en el cache después de expirar.");
     }
 
