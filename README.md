@@ -9,7 +9,6 @@
 ## 🌟 Features
 
 - Cache
-- Cli
 - Collections
 - Colors
 - Maths
